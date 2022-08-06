@@ -1,0 +1,328 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700&display=swap');
+
+body{
+    font-family: 'Montserrat', sans-serif;
+    margin: 0px;
+    padding: 0px;
+}
+
+.main{
+    width: 100vw;
+    scroll-behavior: smooth;
+
+    &-header {
+        margin-left: 3rem;
+        margin-right: 3rem;
+        padding-top: 30px;
+
+        img {
+            width: 200px;
+        }
+    }
+
+    &-container{
+        margin-left: 3rem;
+        display: flex;
+        min-height: 600px;
+        box-sizing: border-box;
+        scroll-behavior: smooth;
+    }
+
+    &-view{
+        min-height: max-content;
+        padding: 3rem;
+        background: linear-gradient(180deg, #EAF5FE 0%, rgba(255, 255, 255, 0) 2009.21%);
+    }
+
+    &-arrow{
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        background: #EAF5FE;
+        img{
+            width: 50px;
+            z-index: 9999;
+        }
+    }
+
+    &-view--title{
+        font-size: 1.4rem;
+        font-weight: 600;
+        margin-bottom: 20px;
+    }
+
+    &-view--tabs{
+        display: flex;
+    }
+
+    &-view--alltabs{
+        display: flex;
+    }
+
+    &-view--card{
+        background: white;
+        padding: 20px;
+        border-radius: 5px;
+    }
+
+    &-view--cardTitle{
+        margin-bottom: 20px;
+    }
+
+    &-view--tab{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 2px solid #545DF8;
+        padding: 10px;
+        padding-left: 30px;
+        padding-right: 30px;
+        margin-left: 2px;
+        background: #545DF8;
+        color: white;
+        font-weight: 600;
+        opacity: 0.7;
+        cursor: pointer;
+        &:hover{
+            opacity: 1;
+        }
+    }
+
+    &-left{
+        width: 100%;
+        position: relative;
+        transition: all 500ms;
+        z-index: 9999;
+    }
+
+    &-left--error{
+        padding: 10px;
+        margin-top: 20px;
+        background: rgb(255, 143, 143);
+        color: white;
+        font-weight: 500;
+        z-index: 9999;
+    }
+
+
+    &-right {
+        margin-top: -110px;
+        display: flex;
+        height: 99vh;
+        position: relative;
+        min-height: 600px;
+        transition: all 500ms;
+    }
+
+    &-overlay{
+        position: absolute;
+        width: 100%;
+        height: 400px;
+        bottom: 0;
+        margin-left: -3rem;
+        z-index: 9;
+        pointer-events: none;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #EAF5FE 100.38%);
+    }
+
+    &-left--title{
+        margin-top: 150px;
+        font-size: 2.5rem;
+        font-weight: 600;
+        color: #0F1419;
+    }
+
+    &-left--subtitle {
+        margin-top: 15px;
+    }
+
+    &-left--searchBar{
+        margin-top: 30px;
+        border: 1px solid #545DF8;
+        border-radius: 5px;
+        display: flex;
+        padding: 5px;
+        z-index: 999;
+        input{
+            all: unset;
+            width: 350px;
+            height: 40px;
+            font-weight: 600;
+            font-size: 1.3rem;
+            color: #536471;
+            margin-right: 10px;
+            margin-left: 10px;
+            transition: all 500ms ease-in-out;
+        }
+    }
+
+    &-left--link{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 20px;
+        img{
+            width: 30px;
+        }
+    }
+
+    &-left--searchBtn{
+        width: 100px;
+        height: 100%;
+        background: #545DF8;
+        height: 40px;
+        border-radius: 5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: 500;
+        color: white;
+        cursor: pointer;
+        &:hover{
+            opacity: 0.6;
+        }
+    }
+
+    &-rightCol1{
+        width: auto;
+        padding: 10px;
+        margin-left: 50px;
+        overflow-y: hidden;
+        scroll-behavior: smooth;
+    }
+
+    &-rightCol2 {
+        width: auto;
+        padding: 10px;
+        overflow-y: hidden;
+        scroll-behavior: smooth;
+    }
+
+    &-rightCol3 {
+        width: auto;
+        padding: 10px;
+        overflow-y: hidden;
+        scroll-behavior: smooth;
+    }
+}
+
+.linkedinCard{
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+    border: .1px solid black;
+    border-radius: 5px;
+    background: #EFF3F7;
+    margin-bottom: 20px;
+
+    &-logo{
+        position: absolute;
+        width: 30px;
+        bottom: 5px;
+        right: 5px;
+        background: white;
+        padding: 0px;
+    }
+
+    &-img{
+        img{
+            width: 100%;
+        }
+    }
+
+    &-headline{
+        font-size: .8rem;
+        font-weight: 500;
+        padding: 10px 10px 5px 10px
+    }
+
+    &-desc{
+        display: flex;
+        align-items: center;
+        font-size: .7rem;
+        opacity: 0.6;
+        padding: 0px 10px 10px 10px;
+        div:nth-child(2){
+            margin-left: 8px;
+            margin-right: 8px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #536471;
+        }
+    }
+}
+
+.twitterCard{
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+    border: .1px solid black;
+    border-radius: 5px;
+    background: #FFFFFF;
+    margin-bottom: 20px;
+
+    &-logo {
+        position: absolute;
+        width: 30px;
+        bottom: 5px;
+        right: 5px;
+        background: white;
+        padding: 1px;
+        svg{
+            fill: #1D9BEF;
+        }
+
+        path{
+            fill: #1D9BEF;
+        }
+    }
+
+    &-img {
+        img {
+            width: 100%;
+        }
+    }
+
+    &-domain {
+        font-size: .7rem;
+        opacity: 0.6;
+        padding: 10px 10px 5px 10px
+    }
+
+    &-title {
+        font-size: .8rem;
+        font-weight: 500;
+        padding: 5px 10px 5px 10px
+    }
+
+    &-subtitle {
+        font-size: .7rem;
+        opacity: 0.6;
+        padding: 0 10px 5px 10px;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        margin-bottom: 10px;
+        line-height: 1rem;
+    }
+}
+
+
+.otherCard {
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+    border: .1px solid black;
+    border-radius: 5px;
+    background: #FFFFFF;
+    margin-bottom: 20px;
+    display: flex;
+
+    &-img {
+        img {
+            width: 150px;
+        }
+    }
+}
