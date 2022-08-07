@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react"
+import Link from "next/link"
+import AwesomeDebouncePromise from "awesome-debounce-promise";
 import Logo from "../resources/Logo.svg"
-import Link from "../resources/Link.svg"
+import LinkLogo from "../resources/Link.svg"
 import LinkedInCard from "../components/LinkedInCard"
 import TwitterCard from "../components/TwitterCard"
 import ArrowIcon from '../resources/ArrowIcon.svg'
+import OmkarBack from '../resources/OmkarBack.png'
 import OtherCard from "../components/OtherCard"
 
 
@@ -13,6 +16,7 @@ export default function Home() {
   const [state, setState] = useState({
     searchFocused: false,
     metadata: null,
+    isMobileView: false,
     isError: false,
     tabIdx: 0,
     metadataLoading: false,
@@ -195,9 +199,9 @@ export default function Home() {
     let col3 = document.getElementById("col3")
     let col1Flag = false, col2Flag = false, col3Flag = false
     let interval = setInterval(() => {
-      col1.scrollBy(0, 1)
+      col1.scrollBy(0, 2)
       col2.scrollBy(0, 5)
-      col3.scrollBy(0, 3)
+      col3.scrollBy(0, 7)
 
       if (col1.scrollTop >= (col1.scrollHeight - col1.clientHeight)) {
         col1Flag = true
@@ -233,6 +237,28 @@ export default function Home() {
     // })
   }, [])
 
+  // Run only first time when component loads
+	useEffect(() => {
+		// set initial level
+		if (window.innerWidth <= 768) setState((prevState) => ({ ...prevState, isMobileView: true }));
+		else setState((prevState) => ({ ...prevState, isMobileView: false }));
+
+		window.addEventListener("resize", () => {
+			if (window.innerWidth <= 768) setIsMobileViewDebouncer(true);
+			else setIsMobileViewDebouncer(false);
+		});
+
+		return () => {
+			window.removeEventListener("resize", () => {});
+		};
+	}, []);
+
+  // Debouncing resize event
+	const setIsMobileViewDebouncer = AwesomeDebouncePromise((flag) => {
+		setState((prevState) => ({ ...prevState, isMobileView: flag }));
+		console.log("resize event triggered, updating local component state");
+  }, 500);
+  
   const handleSave = () => {
     let elem = document.getElementById("searchBar")
     let value = elem.value
@@ -267,6 +293,7 @@ export default function Home() {
   }
 
   const renderContainerOne = () => {
+    console.log(state.isMobileView? "100%": state.searchFocused? "400px": "350px" );
     return (
       <>
         <div className="main-container">
@@ -281,9 +308,9 @@ export default function Home() {
             </div>
             <div className="main-left--searchBar">
                 <div className="main-left--link">
-                  <img src={ Link.src } alt="link" />
+                  <img src={ LinkLogo.src } alt="link" />
                 </div>
-                <input id="searchBar" style={{ width: state.searchFocused? "400px": "350px" }} placeholder="e.g. google.com" onFocus={(eve) => handleSearchBarFocus(eve,true)} onBlur={(eve) => handleSearchBarFocus(eve,false)}/>
+                <input id="searchBar" style={{ width: state.isMobileView? "100%": state.searchFocused? "400px": "350px" }} placeholder="e.g. google.com" onFocus={(eve) => handleSearchBarFocus(eve,true)} onBlur={(eve) => handleSearchBarFocus(eve,false)}/>
                 <div className="main-left--searchBtn" onClick={handleSave}>
                   { state.metadataLoading ? "Loading...": "Search" }
                 </div>
@@ -319,7 +346,7 @@ export default function Home() {
                 })
               }
             </div>
-            <div className="main-rightCol3" id="col3" style={{ display: state.searchFocused? "none": "block" }}>
+            <div className="main-rightCol3" id="col3" style={{ display: state.isMobileView? "none":  state.searchFocused? "none": "block" }}>
               {
                 state.postsArray.map(post => {
                   if (post.type === "linkedin") {
@@ -351,17 +378,17 @@ export default function Home() {
             <div className="main-view--alltabs">
               <div  className="main-view--card">
                 <div className="main-view--cardTitle">Linkedin card</div>
-                <LinkedInCard style={{ width: "350px" }} postData={{ title: state.metadata.title, imageURL: state.metadata.images[0], readTime: "3 mins read", webDomain: state.metadata.domain }} />
+                <LinkedInCard style={{ width: state.isMobileView? "100%": "350px" }} postData={{ title: state.metadata.title, imageURL: state.metadata.images[0], readTime: "3 mins read", webDomain: state.metadata.domain }} />
               </div>
 
               <div  className="main-view--card">
                 <div className="main-view--cardTitle">Twitter card</div>
-                <TwitterCard style={{ width: "350px" }} postData={{ title: state.metadata.title, subtitle: state.metadata.description, imageURL: state.metadata.images[0], domain: state.metadata.domain }} />
+                <TwitterCard style={{ width: state.isMobileView? "100%": "350px" }} postData={{ title: state.metadata.title, subtitle: state.metadata.description, imageURL: state.metadata.images[0], domain: state.metadata.domain }} />
               </div>
               
               <div  className="main-view--card">
                 <div className="main-view--cardTitle">Other social media cards</div>
-                <OtherCard style={{ width: "350px" }} postData={{ title: state.metadata.title, subtitle: state.metadata.description, imageURL: state.metadata.images[0], domain: state.metadata.domain }} />
+                <OtherCard style={{ width: state.isMobileView? "100%": "350px" }} postData={{ title: state.metadata.title, subtitle: state.metadata.description, imageURL: state.metadata.images[0], domain: state.metadata.domain }} />
               </div>
             </div>
           </div>
@@ -381,6 +408,22 @@ export default function Home() {
                 If your website url has preview enabled and the web url is shared on any social media networks, then becuase of previews
                 user is more likely to click the url as he/she/they know that the url is not trying to phishing and they also have an idea 
                 about what content they will get to see if clicked on the link
+              </div>
+            </div>
+          </div>
+        </div>
+
+         <div className="main-view">
+          <div className="main-view--title">Created by - <Link href="https://omkarajagunde.web.app">omkarajagunde.web.app</Link></div>
+          {/* <div className="main-view--tabs">
+            {
+              state.tabsArray.map((tab, idx) => <div style={{ opacity: state.tabIdx === idx? "1": "0.7" }} onClick={() => handleTab(idx)} className="main-view--tab">{ tab }</div>)
+            }
+          </div> */}
+          <div className="main-view--alltabs">
+            <div  className="main-view--card">
+              <div className="main-view--cardTitle">
+                <img src={ OmkarBack.src } width="100%"/>
               </div>
             </div>
           </div>
